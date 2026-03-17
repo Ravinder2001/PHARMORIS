@@ -37,8 +37,7 @@ const KpiCard = memo(function KpiCard({ data, index }: KpiCardProps) {
         delay: index * 0.1,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
-      whileHover={{ scale: 1.018, transition: { duration: 0.2 } }}
-      className="group cursor-pointer relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all dark:border-[#1E1F28] dark:bg-[#111218] dark:shadow-none"
+      className="group cursor-pointer relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all dark:border-[#1E1F28] dark:bg-[#111218] dark:shadow-none [transform:translateZ(0)] will-change-transform"
     >
       {/* Subtle shimmer on hover */}
       <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-br from-[#4F6EF7]/5 via-transparent to-transparent" />

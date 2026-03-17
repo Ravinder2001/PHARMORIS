@@ -287,7 +287,7 @@ const DataTable = memo(function DataTable({ isLoading }: DataTableProps) {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex items-center justify-between border-t border-gray-200 px-6 py-3 dark:border-[#1E1F28]">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-200 px-4 sm:px-6 py-4 sm:py-3 dark:border-[#1E1F28]">
         {/* Page Size Selector */}
         <div className="flex items-center gap-2">
           <p className="text-xs text-gray-500 dark:text-[#8B8FA8]">Rows per page</p>
