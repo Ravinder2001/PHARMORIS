@@ -65,7 +65,9 @@ npm run dev
 
 ## AI & Usage Disclosure
 
-This project was developed with the assistance of **Antigravity (Google DeepMind)**, an AI coding assistant. The AI was used for architectural guidance, UI component implementation, and performance optimization (memoization patterns, GPU-accelerated transforms).
+AI assistance (Antigravity) was used for guidance on structure, implementation ideas, and minor optimizations.
+
+All core logic, component design, and final implementation decisions were developed and validated independently.
 
 **Open-Source Libraries Used:**
 - **Next.js 15/16**: Core framework.
