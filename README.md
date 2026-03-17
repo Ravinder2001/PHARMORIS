@@ -29,7 +29,7 @@ npm run dev
 
 | Technology | Role |
 |---|---|
-| **Next.js 15** | App Router, SSR setup |
+| **Next.js 16** | App Router, SSR setup |
 | **TypeScript** | Strict typing across components & data models |
 | **Tailwind CSS v4** | Utility-first styling with custom theme variables |
 | **Recharts** | Interactive Area Chart with customized gradients and tooltips |
