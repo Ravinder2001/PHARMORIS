@@ -13,7 +13,7 @@ import {
   SortingState,
   PaginationState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ArrowUp, ArrowDown, PackageSearch, Search, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, PackageSearch, Search, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Download, Loader2, Check } from "lucide-react";
 import { drugTableData } from "@/lib/data";
 import { DrugRow, StockStatus } from "@/lib/types";
 
@@ -91,6 +91,21 @@ const DataTable = memo(function DataTable({ isLoading }: DataTableProps) {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [downloadState, setDownloadState] = useState<"idle" | "downloading" | "done">("idle");
+
+  const handleExport = useCallback(() => {
+    if (downloadState !== "idle") return;
+    setDownloadState("downloading");
+    
+    // Simulate export delay
+    setTimeout(() => {
+      setDownloadState("done");
+      // Reset after 2 seconds
+      setTimeout(() => {
+        setDownloadState("idle");
+      }, 2000);
+    }, 1500);
+  }, [downloadState]);
 
   const formatDate = useCallback((iso: string) => {
     const d = new Date(iso);
@@ -198,8 +213,29 @@ const DataTable = memo(function DataTable({ isLoading }: DataTableProps) {
           </div>
 
           <span className="hidden sm:inline-flex shrink-0 items-center justify-center h-8 rounded-full bg-gray-100 px-3 text-xs font-medium text-gray-500 dark:bg-[#1E1F28] dark:text-[#8B8FA8]">
+            <span className="relative flex h-2 w-2 mr-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34C780] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#34C780]"></span>
+            </span>
             Live
           </span>
+
+          {/* Export Button */}
+          <button
+            onClick={handleExport}
+            disabled={downloadState !== "idle"}
+            className="flex h-8 items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 text-xs font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 disabled:pointer-events-none dark:border-[#1E1F28] dark:bg-[#111218] dark:text-[#F0F1F5] dark:hover:bg-[#1A1B24]"
+          >
+            {downloadState === "idle" && <Download className="h-3.5 w-3.5" aria-hidden="true" />}
+            {downloadState === "downloading" && <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />}
+            {downloadState === "done" && <Check className="h-3.5 w-3.5 text-[#34C780]" aria-hidden="true" />}
+            <span className="hidden sm:inline-block">
+              {downloadState === "idle" ? "Export" : downloadState === "downloading" ? "Exporting..." : "Downloaded"}
+            </span>
+            <span className="sm:hidden">
+              {downloadState === "done" ? "Done" : "Export"}
+            </span>
+          </button>
         </div>
       </div>
 

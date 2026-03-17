@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import KpiCard from "@/components/KpiCard";
+import KpiCard, { KpiSkeleton } from "@/components/KpiCard";
 import Chart from "@/components/Chart";
 import DataTable from "@/components/DataTable";
 import { kpiData } from "@/lib/data";
@@ -52,9 +52,13 @@ export default function DashboardPage() {
         {/* KPI Cards Grid */}
         <section aria-label="Key performance indicators" className="mb-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {kpiData.map((item, index) => (
-              <KpiCard key={item.id} data={item} index={index} />
-            ))}
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, index) => (
+                  <KpiSkeleton key={`kpi-skeleton-${index}`} />
+                ))
+              : kpiData.map((item, index) => (
+                  <KpiCard key={item.id} data={item} index={index} />
+                ))}
           </div>
         </section>
 
