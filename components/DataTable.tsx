@@ -97,14 +97,32 @@ const DataTable = memo(function DataTable({ isLoading }: DataTableProps) {
     if (downloadState !== "idle") return;
     setDownloadState("downloading");
     
-    // Simulate export delay
+    // Simulate slight server delay for polish
     setTimeout(() => {
+      // 1. Generate CSV content
+      const headers = ["Drug Name,Manufacturer,Stock Status,Price Change (%),Last Updated"];
+      const rows = drugTableData.map(drug => 
+        // Wrap strings in quotes to handle potential commas in names
+        `"${drug.name}","${drug.manufacturer}","${drug.stockStatus}","${drug.priceChange}","${drug.lastUpdated}"`
+      );
+      const csvContent = headers.concat(rows).join("\n");
+
+      // 2. Create Blob and trigger download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `pharmoris_inventory_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
       setDownloadState("done");
       // Reset after 2 seconds
       setTimeout(() => {
         setDownloadState("idle");
       }, 2000);
-    }, 1500);
+    }, 800);
   }, [downloadState]);
 
   const formatDate = useCallback((iso: string) => {
