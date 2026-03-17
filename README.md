@@ -60,3 +60,17 @@ npm run dev
 
 # App runs at http://localhost:3000 and redirects to /dashboard.
 ```
+
+---
+
+## AI & Usage Disclosure
+
+This project was developed with the assistance of **Antigravity (Google DeepMind)**, an AI coding assistant. The AI was used for architectural guidance, UI component implementation, and performance optimization (memoization patterns, GPU-accelerated transforms).
+
+**Open-Source Libraries Used:**
+- **Next.js 15/16**: Core framework.
+- **TanStack Table (React Table)**: Headless table logic.
+- **Recharts**: Data visualization.
+- **Framer Motion**: Interactive animations.
+- **Lucide React**: Icon system.
+- **next-themes**: Theme management.
